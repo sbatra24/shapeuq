@@ -2,7 +2,7 @@
 
 Code for **ShapeUQ: Propagating 3D Reconstruction Uncertainty Through Scientific PDE Simulations via Shape Calculus**, an oral at the CVPR 2026 3D4S workshop.
 
-One Colab notebook, `ShapeUQ_reproduction.ipynb`, rebuilds the whole method and the SciUQ-3D benchmark. The original experiment code was lost, so this is a clean reimplementation written against the paper's Sections 3 to 7.
+`ShapeUQ_reproduction.ipynb` rebuilds the whole method and the SciUQ-3D benchmark. The original experiment code was lost, so this is a clean reimplementation written against the paper's Sections 3 to 7.
 
 [Open in Colab](https://colab.research.google.com/github/sbatra24/shapeuq/blob/main/ShapeUQ_reproduction.ipynb)
 
@@ -14,11 +14,11 @@ The paper reports 90% coverage across glacier, protein and coral geometries at 1
 
 ## What's implemented
 
-Exact SDFs for the three domains (a slab under a rough heightfield, the van der Waals surface of PDB 1UBQ from real atom coordinates, a branching capsule coral); noisy surface measurements with an 80/20 split; an 8-layer positional-encoded SDF with Eikonal regularisation and geometric initialisation; a Matérn-3/2 GP on the held-out residuals fitted by maximum marginal likelihood (plus RBF, Matérn-1/2, Matérn-5/2 and a spectral mixture for the ablation); meshfree collocation solvers for heat diffusion, linearised Poisson-Boltzmann and Stokes, forward and adjoint, with domain points where phi < 0 and boundary points projected along the SDF gradient; the Eq. 7 sensitivity field, the Eq. 8 variance and the confidence interval; the Deterministic, first-order Perturbation and Monte Carlo baselines; Table 1 (coverage and speedup), Table 2 (kernel ablation) and Figure 2 (bound tightness). Results checkpoint to `results/raw_cases.csv` after every case, so a Colab runtime reset resumes where it stopped.
+Exact SDFs for the three domains (a slab under a rough heightfield, the van der Waals surface of PDB 1UBQ from real atom coordinates, a branching capsule coral); noisy surface measurements with an 80/20 split; an 8-layer positional-encoded SDF with Eikonal regularisation and geometric initialisation; a Matérn-3/2 GP on the held-out residuals fitted by maximum marginal likelihood (plus RBF, Matérn-1/2, Matérn-5/2 and a spectral mixture for the ablation); meshfree collocation solvers for heat diffusion, linearised Poisson-Boltzmann and Stokes, forward and adjoint, with domain points where phi < 0 and boundary points projected along the SDF gradient; the Eq. 7 sensitivity field, the Eq. 8 variance and the confidence interval; the Deterministic, first-order Perturbation and Monte Carlo baselines; Table 1 (coverage and speedup), Table 2 (kernel ablation) and Figure 2 (bound tightness). Results checkpoint to `results/raw_cases.csv` after every case, so an interrupted run resumes where it stopped.
 
 ## Running it
 
-Set the runtime to a T4 GPU and run all. `RUN_MODE = "smoke"` executes every cell at toy scale in a few minutes. `RUN_MODE = "full"` runs 6 noise realisations per cell of Table 1, with Monte Carlo on 2 of them, and takes several hours; the settings are in `CFG` at the top and each one is easy to scale.
+Set the runtime to a GPU and run all. `RUN_MODE = "smoke"` executes every cell at reduced scale. `RUN_MODE = "full"` runs 6 noise realisations per cell of Table 1, with Monte Carlo on 2 of them, and takes several hours; the settings are in `CFG` at the top and each one is easy to scale.
 
 ## What differs from the paper
 
